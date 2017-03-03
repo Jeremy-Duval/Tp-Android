@@ -11,15 +11,10 @@
     tools:context="com.example.jeremy.listes.MainActivity"
     android:weightSum="1">
 
-    <TextView
-        android:textStyle="bold"
-        android:textColor="#1AC7B0"
-        android:layout_width="56dp"
-        android:layout_height="fill_parent"
-        android:text="List Of Musique !" />
 
     <ListView
         android:id="@+id/musique"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"></ListView>
+        android:layout_height="match_parent"
+        android:layout_weight="0.56"></ListView>
 </LinearLayout>
