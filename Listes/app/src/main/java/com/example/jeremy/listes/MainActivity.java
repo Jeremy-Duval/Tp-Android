@@ -2,7 +2,10 @@ package com.example.jeremy.listes;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,5 +61,24 @@ public class MainActivity extends AppCompatActivity {
         element.put("description", "Panda Eyes");
         element.put("image", String.valueOf(R.drawable.));
         listItem.add(element);
+
+        //creation of a SimpleAdapter
+        SimpleAdapter musique_schedule = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.affichageitem,
+                new String[]{"image", "titre", "description"},
+                new int[]{R.id.img, R.id.titre, R.id.description}
+
+                );
+
+        musique.setAdapter(musique_schedule);
+
+        musique.setOnClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
+
     }
 }
