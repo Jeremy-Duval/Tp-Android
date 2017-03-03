@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         //the goal here is to add in the HashMap all the attributes whiches define one element
         element.put("titre", "Smell like a teen spirit");
         element.put("description", "Nirvana");
-        element.put("image", String.valueOf(R.drawable.));
+        element.put("image", String.valueOf(R.mipmap.ic_nirvana));
 
         //Once the element created, we add it inside the ArrayList listItem
         listItem.add(element);
@@ -44,25 +44,25 @@ public class MainActivity extends AppCompatActivity {
         element = new HashMap<>();
         element.put("titre", "MasterWorm");
         element.put("description", "Pang!");
-        element.put("image", String.valueOf(R.drawable.));
+        element.put("image", String.valueOf(R.mipmap.ic_pang));
         listItem.add(element);
 
         element = new HashMap<>();
         element.put("titre", "Who knows");
         element.put("description", "Protoje");
-        element.put("image", String.valueOf(R.drawable.));
+        element.put("image", String.valueOf(R.mipmap.ic_protoje));
         listItem.add(element);
 
         element = new HashMap<>();
         element.put("titre", "Four Walls");
         element.put("description", "While She Sleeps");
-        element.put("image", String.valueOf(R.drawable.));
+        element.put("image", String.valueOf(R.mipmap.ic_whileshesleeps));
         listItem.add(element);
 
         element = new HashMap<>();
         element.put("titre", "Highscore");
         element.put("description", "Panda Eyes");
-        element.put("image", String.valueOf(R.drawable.));
+        element.put("image", String.valueOf(R.mipmap.ic_pandaeyes));
         listItem.add(element);
 
         //creation of a SimpleAdapter
