@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
                 HashMap<String, String> hashmapselected = (HashMap<String, String>) musique.getItemAtPosition(position);
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
                 alert.setTitle("Music selected");
-                alert.setMessage("You have selected : " + hashmapselected.get("titre").toString() + " by " + hashmapselected.get("description").toString() + hashmapselected.get("image").toString());
+                alert.setIcon(Integer.parseInt(hashmapselected.get("image")));
+                alert.setMessage("You have selected : " + hashmapselected.get("titre").toString() + " by " + hashmapselected.get("description").toString());
                 alert.setPositiveButton("Got It", null);
                 alert.show();
             }
