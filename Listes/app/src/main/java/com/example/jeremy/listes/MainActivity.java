@@ -1,9 +1,12 @@
 package com.example.jeremy.listes;
 
+import android.app.LauncherActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -71,11 +74,15 @@ public class MainActivity extends AppCompatActivity {
 
         musique.setAdapter(musique_schedule);
 
-        musique.setOnClickListener(new AdapterView.OnItemClickListener(){
-
+        musique.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                HashMap<String, String> hashmapselected = (HashMap<String, String>) musique.getItemAtPosition(position);
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                alert.setTitle("Music selected");
+                alert.setMessage("You have selected : " + hashmapselected.get("titre").toString() + " by " + hashmapselected.get("description").toString() + hashmapselected.get("image").toString());
+                alert.setPositiveButton("Got It", null);
+                alert.show();
             }
         });
 
