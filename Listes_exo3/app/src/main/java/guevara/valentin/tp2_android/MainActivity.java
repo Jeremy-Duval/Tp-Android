@@ -1,12 +1,13 @@
 package guevara.valentin.tp2_android;
 
-import android.app.LauncherActivity;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -14,14 +15,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-
     private ListView musique;
     private ArrayList<HashMap<String,String>> listItem;
+    Button b_contact_adding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        b_contact_adding = (Button) findViewById(R.id.button);
 
         //fetch the listView created in the XML file Main
         musique = (ListView) findViewById(R.id.musique);
@@ -76,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
                 alert.setMessage("You have selected : " + hashmapselected.get("titre").toString() + " by " + hashmapselected.get("description").toString());
                 alert.setPositiveButton("Got It", null);
                 alert.show();
+            }
+        });
+
+        b_contact_adding.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainActivity.this, ActivityA.class);
+                startActivity(myIntent);
             }
         });
 

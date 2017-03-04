@@ -54,7 +54,7 @@ public class ActivityA extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_a); //BIG PROBLEM I DON'T KNOW WHY FOR THE MOMENT
         dateNaiss = (EditText) findViewById(R.id.editTextdateNaiss);
         masc = (RadioButton) findViewById(R.id.radioButton);
         fem = (RadioButton) findViewById(R.id.radioButton2);

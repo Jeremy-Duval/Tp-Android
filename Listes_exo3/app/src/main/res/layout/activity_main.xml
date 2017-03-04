@@ -11,10 +11,22 @@ android:paddingTop="@dimen/activity_vertical_margin"
 tools:context="guevara.valentin.tp2_android.MainActivity">
 android:weightSum="1">
 
+    <Button
+        android:text="Ajouter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_marginBottom="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
-<ListView
-    android:id="@+id/musique"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="0.56"></ListView>
+    <ListView
+        android:id="@+id/musique"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.56">
+    </ListView>
+
+
+
 </LinearLayout>
