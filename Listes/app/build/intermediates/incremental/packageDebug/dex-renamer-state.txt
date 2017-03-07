@@ -1,0 +1,7 @@
+#Fri Mar 03 16:19:34 CET 2017
+base.0=/home/valentin/AndroidStudioProjects/Tp-ListView/Listes/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_652650cd396df06c8de5076b8c7165dc29d6764a
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/home/valentin/AndroidStudioProjects/Tp-ListView/Listes/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_916c0acc7b29c6fe8fcaf518ced3a8176674ba5b/classes.dex
+base.1=/home/valentin/AndroidStudioProjects/Tp-ListView/Listes/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_916c0acc7b29c6fe8fcaf518ced3a8176674ba5b
+file.0=/home/valentin/AndroidStudioProjects/Tp-ListView/Listes/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_652650cd396df06c8de5076b8c7165dc29d6764a/classes.dex
