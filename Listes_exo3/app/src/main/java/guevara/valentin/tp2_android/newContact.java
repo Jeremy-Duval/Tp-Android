@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class newContact extends AppCompatActivity {
@@ -81,19 +82,28 @@ public class newContact extends AppCompatActivity {
                             .setMessage("Il est impossible de laisser des champs vides")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent myIntent = new Intent(newContact.this, ActivityB.class);
-                                    myIntent.putExtra("nom", nom.getText().toString());
-                                    startActivity(myIntent);
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // do nothing
+
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                 }else{
+                    HashMap<String,String> element = new HashMap<>();
+                    element.put("nom", nom.getText().toString());
+                    element.put("prenom", prenom.getText().toString());
+                    element.put("numero", numero.getText().toString());
+                    element.put("mail", mail.getText().toString());
+                    element.put("dateNaiss", dateNaiss.getText().toString());
+
+                    if(masc.isChecked()){
+                        element.put("sexe", masc.getText().toString());
+                    }else{
+                        element.put("sexe", fem.getText().toString());
+                    }
+
+                    Intent myIntent = new Intent(newContact.this, MainActivity.class);
+                    myIntent.putExtra("contact", element);
+                    startActivity(myIntent);
 
                 }
             }
