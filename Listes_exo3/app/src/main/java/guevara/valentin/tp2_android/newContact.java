@@ -103,8 +103,8 @@ public class newContact extends AppCompatActivity {
 
                     Intent myIntent = new Intent(newContact.this, MainActivity.class);
                     myIntent.putExtra("contact", element);
-                    startActivity(myIntent);
-
+                    setResult(RESULT_OK, myIntent);
+                    finish();
                 }
             }
         });
