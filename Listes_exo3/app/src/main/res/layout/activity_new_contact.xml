@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -90,17 +91,6 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:layout_marginTop="10dp"
-        android:id="@+id/editText5"
-        android:hint="Adresse mail"
-        android:layout_below="@+id/editText4"
-        android:layout_alignStart="@+id/editText4" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editTextdateNaiss"
@@ -118,5 +108,24 @@
         android:layout_marginBottom="32dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:layout_above="@+id/button"
+        android:layout_alignStart="@+id/editText4"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="29dp"
+        android:id="@+id/imageContact" />
+
+    <TextView
+        android:text="Sélectionnez une image de contact en cliquant sur l'appareil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageContact"
+        android:layout_toEndOf="@+id/textView5"
+        android:layout_marginStart="22dp"
+        android:id="@+id/textView4" />
 
 </RelativeLayout>

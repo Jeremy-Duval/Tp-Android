@@ -4,12 +4,17 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 
 import java.text.SimpleDateFormat;
@@ -18,11 +23,15 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class newContact extends AppCompatActivity {
-
+    private static final int SELECT_PICTURE = 100;
+    private static final String TAG = "MainActivity";
+    private String path;
+    private Uri selectedImageUri;
     Calendar myCalendar = Calendar.getInstance();
     EditText dateNaiss;
     RadioButton masc,fem;
-    EditText nom,prenom,numero,mail;
+    EditText nom,prenom,numero;
+    ImageView imageContact;
     Button valid;
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -58,7 +67,7 @@ public class newContact extends AppCompatActivity {
         nom = (EditText) findViewById(R.id.editText2);
         prenom = (EditText) findViewById(R.id.editText3);
         numero = (EditText) findViewById(R.id.editText4);
-        mail =  (EditText) findViewById(R.id.editText5);
+        imageContact =  (ImageView) findViewById(R.id.imageContact);
         valid = (Button) findViewById(R.id.button);
 
         dateNaiss.setOnClickListener(new android.view.View.OnClickListener() {
@@ -72,10 +81,22 @@ public class newContact extends AppCompatActivity {
             }
         });
 
+        imageContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+            }
+        });
+
+
+
         valid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((!masc.isChecked() && !fem.isChecked()) || nom.getText().toString().equals("") || prenom.getText().toString().equals("") || numero.getText().toString().equals("") || dateNaiss.getText().toString().equals("")  || mail.getText().toString().equals("")){
+                if((!masc.isChecked() && !fem.isChecked()) || nom.getText().toString().equals("") || prenom.getText().toString().equals("") || numero.getText().toString().equals("") || dateNaiss.getText().toString().equals("")){
                     //nom.setText(prenom.getText().toString());
                     new AlertDialog.Builder(newContact.this)
                             .setTitle("Remplir tous les champs")
@@ -92,7 +113,7 @@ public class newContact extends AppCompatActivity {
                     element.put("nom", nom.getText().toString());
                     element.put("prenom", prenom.getText().toString());
                     element.put("numero", numero.getText().toString());
-                    element.put("mail", mail.getText().toString());
+                    element.put("image", String.valueOf(selectedImageUri));
                     element.put("dateNaiss", dateNaiss.getText().toString());
 
                     if(masc.isChecked()){
@@ -108,5 +129,33 @@ public class newContact extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url from data
+                selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // Get the path from the Uri
+                    path = getPathFromURI(selectedImageUri);
+                    Log.i(TAG, "Image Path : " + path);
+                    // Set the image in ImageView
+                    imageContact.setImageURI(selectedImageUri);
+                }
+            }
+        }
+    }
+
+    public String getPathFromURI(Uri contentUri) {
+        String res = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        if (cursor.moveToFirst()) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
+        }
+        cursor.close();
+        return res;
     }
 }

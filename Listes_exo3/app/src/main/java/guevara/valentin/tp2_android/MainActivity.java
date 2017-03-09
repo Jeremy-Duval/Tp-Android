@@ -3,7 +3,9 @@ package guevara.valentin.tp2_android;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +15,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,23 +27,33 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<String, String> renseignement;
     private ArrayList<HashMap<String,String>> listItem;
     private SimpleAdapter contact_schedule;
+    private static boolean first_Start = true;
 
     //We declare an Hashmap which is equivalent to one element
     private HashMap<String,String> element;
 
     Button b_contact_adding;
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("liste", listItem);
+
+    protected void saveList() {
+        SharedPreferences db= PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+
+        SharedPreferences.Editor collection = db.edit();
+        Gson gson = new Gson();
+        String contact = gson.toJson(listItem);
+
+        collection.putString("listItem", contact);
+
+        collection.commit();
     }
 
-    private void restore(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            listItem = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("liste");
-            contact_schedule.notifyDataSetChanged();
-        }
+    private void restoreList() {
+        SharedPreferences db=PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+
+        Gson gson = new Gson();
+        String arrayListString = db.getString("listItem", null);
+        Type type = new TypeToken<ArrayList<HashMap<String,String>>>() {}.getType();
+        listItem = gson.fromJson(arrayListString, type);
     }
 
     @Override
@@ -62,10 +77,13 @@ public class MainActivity extends AppCompatActivity {
         element.put("nom", "Velien Fanny");
         element.put("numero", "0609098149");
         element.put("naissance", "02/01/1997");
-        element.put("mail", "fanny.velien@live.com");
         element.put("sexe", "F");
         element.put("image", String.valueOf(R.mipmap.ic_default_profile));
         listItem.add(element);
+
+
+        //restore list saved
+        restoreList();
 
         //creation of a SimpleAdapter
         contact_schedule = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.affichageitem,
@@ -137,8 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(myIntent, 1);
             }
         });
-
-      //  onSaveInstanceState();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -151,15 +167,22 @@ public class MainActivity extends AppCompatActivity {
                 element.put("nom", renseignement.get("nom") + " " + renseignement.get("prenom"));
                 element.put("numero", renseignement.get("numero"));
                 element.put("naissance", renseignement.get("dateNaiss"));
-                element.put("mail", renseignement.get("mail"));
+                element.put("image", renseignement.get("image"));
                 element.put("sexe", renseignement.get("sexe"));
-                element.put("image", String.valueOf(R.mipmap.ic_default_profile));
                 listItem.add(element);
                 contact_schedule.notifyDataSetChanged(); //add the new contact
+                System.out.println("ActivityResult");
             }
             if (resultCode == RESULT_CANCELED) {
                 // Write your code if there's no result
             }
         }
     }
+
+    @Override
+    protected void onStop(){
+        saveList(); //save the new list
+        super.onStop();
+    }
+
 }
