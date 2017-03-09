@@ -16,6 +16,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,6 +33,7 @@ public class newContact extends AppCompatActivity {
     EditText dateNaiss;
     RadioButton masc,fem;
     EditText nom,prenom,numero;
+    TextView textContact;
     ImageView imageContact;
     Button valid;
 
@@ -68,6 +71,7 @@ public class newContact extends AppCompatActivity {
         prenom = (EditText) findViewById(R.id.editText3);
         numero = (EditText) findViewById(R.id.editText4);
         imageContact =  (ImageView) findViewById(R.id.imageContact);
+        textContact = (TextView) findViewById(R.id.textContact);
         valid = (Button) findViewById(R.id.button);
 
         dateNaiss.setOnClickListener(new android.view.View.OnClickListener() {
@@ -84,10 +88,8 @@ public class newContact extends AppCompatActivity {
         imageContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, SELECT_PICTURE);
             }
         });
 
@@ -113,7 +115,13 @@ public class newContact extends AppCompatActivity {
                     element.put("nom", nom.getText().toString());
                     element.put("prenom", prenom.getText().toString());
                     element.put("numero", numero.getText().toString());
-                    element.put("image", String.valueOf(selectedImageUri));
+
+                    if(selectedImageUri != null) {
+                        element.put("image", path);
+                    }else{
+                        element.put("image", null);
+                    }
+
                     element.put("dateNaiss", dateNaiss.getText().toString());
 
                     if(masc.isChecked()){
@@ -142,6 +150,8 @@ public class newContact extends AppCompatActivity {
                     Log.i(TAG, "Image Path : " + path);
                     // Set the image in ImageView
                     imageContact.setImageURI(selectedImageUri);
+                    textContact.setText("Chemin : " + path);
+                    Toast.makeText(this.getApplicationContext(),"Image ajoutée avec succès", Toast.LENGTH_SHORT).show();
                 }
             }
         }

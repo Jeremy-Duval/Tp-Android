@@ -1,20 +1,30 @@
 package guevara.valentin.tp2_android;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -62,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        verifyStoragePermissions(MainActivity.this);
 
         b_contact_adding = (Button) findViewById(R.id.button);
 
@@ -72,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         listItem = new ArrayList<>();
 
 
-        //We have to make these operations a lot of times for creating another element
+        //We have to make these operations a lot of times for creating another element (first launch of the application)
         element = new HashMap<>();
         element.put("nom", "Velien Fanny");
         element.put("numero", "0609098149");
@@ -98,10 +109,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final HashMap<String, String> hashmapselected = (HashMap<String, String>) contact.getItemAtPosition(position);
+                Resources res = getResources();
+                BitmapDrawable icon = new BitmapDrawable(res, hashmapselected.get("image"));
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-                alert.setTitle("Contact selectionne");
-                alert.setIcon(Integer.parseInt(hashmapselected.get("image")));
-                alert.setMessage("Vous avez choisi : " + hashmapselected.get("nom").toString() + " " + hashmapselected.get("numero").toString());
+                if(hashmapselected.get("sexe").equals("M")){
+                    alert.setTitle("Contact selectionné");
+                }else{
+                    alert.setTitle("Contact selectionnée");
+                }
+                alert.setIcon(icon);
+                alert.setMessage("Vous avez choisi : " + hashmapselected.get("nom").toString() + "\n" + hashmapselected.get("numero").toString());
                 alert.setPositiveButton("Appeler", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -128,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 final HashMap<String, String> hashmapselected = (HashMap<String, String>) contact.getItemAtPosition(position);
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
                 alert.setTitle("Supprimer Contact");
-                alert.setMessage("Voulez-vous reellement supprimer le contact : " + hashmapselected.get("nom").toString());
+                alert.setMessage(Html.fromHtml("Voulez-vous réellement supprimer le contact : <font color='#FF0000'><b>" + hashmapselected.get("nom").toString() + "</b></font>"));
                 alert.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -167,14 +184,20 @@ public class MainActivity extends AppCompatActivity {
                 element.put("nom", renseignement.get("nom") + " " + renseignement.get("prenom"));
                 element.put("numero", renseignement.get("numero"));
                 element.put("naissance", renseignement.get("dateNaiss"));
-                element.put("image", renseignement.get("image"));
+
+                if(renseignement.get("image") != null) {
+                    element.put("image", renseignement.get("image"));
+                }else{
+                    System.out.println("image par défault");
+                    element.put("image", String.valueOf(R.mipmap.ic_default_profile));
+                }
+
                 element.put("sexe", renseignement.get("sexe"));
                 listItem.add(element);
                 contact_schedule.notifyDataSetChanged(); //add the new contact
                 System.out.println("ActivityResult");
             }
             if (resultCode == RESULT_CANCELED) {
-                // Write your code if there's no result
             }
         }
     }
@@ -183,6 +206,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop(){
         saveList(); //save the new list
         super.onStop();
+    }
+
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    public static void verifyStoragePermissions(Activity activity) {
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 
 }
