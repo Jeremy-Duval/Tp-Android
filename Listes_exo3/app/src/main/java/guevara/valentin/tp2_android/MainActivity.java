@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         String arrayListString = db.getString("listItem", null);
         Type type = new TypeToken<ArrayList<HashMap<String,String>>>() {}.getType();
         listItem = gson.fromJson(arrayListString, type);
+
+        if(listItem == null){
+            listItem = new ArrayList<HashMap<String, String>>();
+        }
     }
 
     @Override
@@ -81,16 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         //HashMap with all elements (Image,Description...) inside the list
         listItem = new ArrayList<>();
-
-
-        //We have to make these operations a lot of times for creating another element (first launch of the application)
-        element = new HashMap<>();
-        element.put("nom", "Velien Fanny");
-        element.put("numero", "0609098149");
-        element.put("naissance", "02/01/1997");
-        element.put("sexe", "F");
-        element.put("image", String.valueOf(R.mipmap.ic_default_profile));
-        listItem.add(element);
 
 
         //restore list saved
