@@ -10,8 +10,92 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.jeremy_et_val.tp_asynctask.MainActivity">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/layoutTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:text="Date-Heure"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="#9DF602"
+            android:id="@+id/button" />
+
+        <TextView
+            android:text="Time"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:textColor="#09C8FD"
+            android:id="@+id/textView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout4button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:orientation="horizontal"
+        android:layout_below="@id/layoutTime">
+
+        <Button
+            android:text="Text HTML"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="#9DF602"
+            android:layout_marginTop="26dp"
+            android:id="@+id/button2" />
+
+        <Button
+            android:text="Meteo LoadData"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="#9DF602"
+            android:layout_marginTop="26dp"
+            android:id="@+id/button4" />
+
+        <Button
+            android:text="Google"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="#9DF602"
+            android:layout_marginTop="26dp"
+            android:id="@+id/button3"/>
+
+        <Button
+            android:text="Meteo LoadUrl"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="#9DF602"
+            android:layout_marginTop="26dp"
+            android:id="@+id/button5" />
+    </LinearLayout>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout4button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
