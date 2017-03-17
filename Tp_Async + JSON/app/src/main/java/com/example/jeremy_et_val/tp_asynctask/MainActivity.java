@@ -52,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
                 new AsyncTask().execute("http://10.0.2.2:3402/time", text_time);
             }
         });
+
+        button_meteo_url.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AsyncTask().execute("http://www.infoclimat.fr/previsions-meteo-par-ville.html", webView_google);
+            }
+        });
     }
 
 

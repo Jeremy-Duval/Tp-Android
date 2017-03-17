@@ -17,14 +17,15 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
     String chaine, chaine2;
     BufferedReader in;
     URL url = null;
-    TextView tv;
+    Object obj;
 
     @Override
     protected String doInBackground(Object... params) {
         chaine = (String) params[0];
-        tv = (TextView) params[1];
+        obj = params[1];
 
-        try {
+        if(obj instanceof TextView){//test si TextView
+            try {
                 url = new URL(chaine);
 
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -38,6 +39,11 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            chaine2 = "Err:format d'objet non supporté :'(";
+        }
+
+
         return chaine2;
     }
 
@@ -53,6 +59,11 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
 
     @Override
     protected void onPostExecute(String result) {
-        tv.setText(result);
+        TextView tv;
+
+        if(obj instanceof TextView) {
+            tv = (TextView) obj;
+            tv.setText(result);
+        }
     }
 }
