@@ -1,6 +1,7 @@
 package com.example.jeremy_et_val.tp_asynctask;
 
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -41,7 +42,11 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
                 e.printStackTrace();
             }
         } else {
-            chaine2 = "Err:format d'objet non supporté :'(";
+            if (obj instanceof WebView){
+                chaine2 = chaine;
+            }else{
+                chaine2 = "Err:format d'objet non supporté :'(";
+            }
         }
 
 
@@ -61,13 +66,16 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
     @Override
     protected void onPostExecute(String result) {
         TextView tv;
+        WebView wv;
 
         if(obj instanceof TextView) {
             tv = (TextView) obj;
             tv.setText(result);
         } else {
             if (obj instanceof WebView){
-                //TODO
+                wv = (WebView) obj;
+                wv.loadUrl(result);
+                wv.setWebViewClient(new WebViewClient());//test print in webView
             }
         }
     }
