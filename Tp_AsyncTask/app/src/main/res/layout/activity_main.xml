@@ -24,7 +24,7 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:background="#9DF602"
-            android:id="@+id/button" />
+            android:id="@+id/button_date_heure" />
 
         <TextView
             android:text="Time"
@@ -35,7 +35,7 @@
             android:textSize="30dp"
             android:textAlignment="center"
             android:textColor="#09C8FD"
-            android:id="@+id/textView" />
+            android:id="@+id/text_time" />
 
     </LinearLayout>
 
@@ -55,7 +55,7 @@
             android:textStyle="bold"
             android:background="#9DF602"
             android:layout_marginTop="26dp"
-            android:id="@+id/button2" />
+            android:id="@+id/button_html" />
 
         <Button
             android:text="Meteo LoadData"
@@ -66,7 +66,7 @@
             android:textStyle="bold"
             android:background="#9DF602"
             android:layout_marginTop="26dp"
-            android:id="@+id/button4" />
+            android:id="@+id/button_meteo_data" />
 
         <Button
             android:text="Google"
@@ -77,7 +77,7 @@
             android:textStyle="bold"
             android:background="#9DF602"
             android:layout_marginTop="26dp"
-            android:id="@+id/button3"/>
+            android:id="@+id/button_google"/>
 
         <Button
             android:text="Meteo LoadUrl"
@@ -88,7 +88,7 @@
             android:textStyle="bold"
             android:background="#9DF602"
             android:layout_marginTop="26dp"
-            android:id="@+id/button5" />
+            android:id="@+id/button_meteo_url" />
     </LinearLayout>
 
     <WebView
@@ -96,6 +96,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/layout4button"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/webview_google"/>
 
 </RelativeLayout>
