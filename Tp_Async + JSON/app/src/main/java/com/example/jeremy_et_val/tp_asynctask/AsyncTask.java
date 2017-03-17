@@ -1,5 +1,6 @@
 package com.example.jeremy_et_val.tp_asynctask;
 
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -24,7 +25,7 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
         chaine = (String) params[0];
         obj = params[1];
 
-        if(obj instanceof TextView){//test si TextView
+        if((obj instanceof TextView)||(obj instanceof WebView)){//test si TextView
             try {
                 url = new URL(chaine);
 
@@ -64,6 +65,10 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
         if(obj instanceof TextView) {
             tv = (TextView) obj;
             tv.setText(result);
+        } else {
+            if (obj instanceof WebView){
+                //TODO
+            }
         }
     }
 }
