@@ -56,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
         button_meteo_url.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncTask().execute("http://openweathermap.org/forecast5", webView_google);
+                new AsyncTask().execute("http://api.openweathermap.org/data/2.5/forecast?q=Bedarieux,fr&APPID=910f0c05f62e5508a3428198252eed06", webView_google);
             }
         });
 
         button_meteo_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncTask().execute("http://openweathermap.org/forecast5", webView_google);
+                new AsyncTask().execute("http://api.openweathermap.org/data/2.5/forecast?q=Bedarieux,fr&APPID=910f0c05f62e5508a3428198252eed06", webView_google);
             }
         });
     }
