@@ -4,6 +4,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -43,7 +47,28 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
             }
         } else {
             if (obj instanceof WebView){
-                chaine2 = chaine;
+                try {
+                    JSONObject jsonobj;
+                    JSONArray jsonlist;
+
+                    url = new URL(chaine);
+
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+                        in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream() ) );
+                        chaine2 = in.readLine();
+                        in.close();
+                        //parssage jsonString
+                        jsonobj = new JSONObject(chaine2);
+                        jsonlist = jsonobj.getJSONArray("list");
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }else{
                 chaine2 = "Err:format d'objet non supporté :'(";
             }
@@ -74,7 +99,7 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
         } else {
             if (obj instanceof WebView){
                 wv = (WebView) obj;
-                wv.loadUrl(result);
+
                 wv.setWebViewClient(new WebViewClient());//test print in webView
             }
         }
