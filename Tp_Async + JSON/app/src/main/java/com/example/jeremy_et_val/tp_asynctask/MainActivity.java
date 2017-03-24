@@ -56,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
         button_meteo_url.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncTask().execute("http://www.infoclimat.fr/previsions-meteo-par-ville.html", webView_google);
+                new AsyncTask().execute("http://openweathermap.org/forecast5", webView_google);
             }
         });
 
         button_meteo_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncTask().execute("http://www.infoclimat.fr/previsions-meteo-par-ville.html", webView_google);
+                new AsyncTask().execute("http://openweathermap.org/forecast5", webView_google);
             }
         });
     }
