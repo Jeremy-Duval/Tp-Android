@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         button_meteo_url.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncTask().execute("http://api.openweathermap.org/data/2.5/forecast?q=Bedarieux,fr&APPID=910f0c05f62e5508a3428198252eed06&units=metric", webView_google);
+                webView_google.loadUrl("http://api.openweathermap.org/data/2.5/forecast?q=Bedarieux,fr&APPID=910f0c05f62e5508a3428198252eed06&units=metric");
             }
         });
 

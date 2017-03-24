@@ -63,6 +63,8 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
                         //parssage jsonString
                         jsonobj = new JSONObject(chaine2);
                         jsonlist = jsonobj.getJSONArray("list");
+                        chaine2=jsonlist.get(1).toString();
+
                     //    Log.d("list",jsonlist.get(0).toString());
                     }
                 } catch (MalformedURLException e) {
@@ -104,7 +106,7 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
                 wv = (WebView) obj;
 
                 //wv.setWebViewClient(new WebViewClient());//test print in webView
-                wv.loadData(String.valueOf(jsonlist), "text/html; charset=utf-8", "UTF-8");
+                wv.loadData(result, "text/html; charset=utf-8", "UTF-8");
             }
         }
     }
