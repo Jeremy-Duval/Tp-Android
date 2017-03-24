@@ -1,5 +1,6 @@
 package com.example.jeremy_et_val.tp_asynctask;
 
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
         chaine = (String) params[0];
         obj = params[1];
 
-        if((obj instanceof TextView)||(obj instanceof WebView)){//test si TextView
+        if(obj instanceof TextView){//test si TextView
             try {
                 url = new URL(chaine);
 
@@ -61,6 +62,7 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
                         //parssage jsonString
                         jsonobj = new JSONObject(chaine2);
                         jsonlist = jsonobj.getJSONArray("list");
+                        Log.d("list",jsonlist.get(0).toString());
                     }
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
