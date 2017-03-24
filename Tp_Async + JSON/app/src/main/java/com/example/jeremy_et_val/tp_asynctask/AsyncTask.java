@@ -26,6 +26,9 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
     URL url = null;
     Object obj;
 
+    JSONObject jsonobj;
+    JSONArray jsonlist;
+
     @Override
     protected String doInBackground(Object... params) {
         chaine = (String) params[0];
@@ -49,8 +52,6 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
         } else {
             if (obj instanceof WebView){
                 try {
-                    JSONObject jsonobj;
-                    JSONArray jsonlist;
 
                     url = new URL(chaine);
 
@@ -62,7 +63,7 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
                         //parssage jsonString
                         jsonobj = new JSONObject(chaine2);
                         jsonlist = jsonobj.getJSONArray("list");
-                        Log.d("list",jsonlist.get(0).toString());
+                    //    Log.d("list",jsonlist.get(0).toString());
                     }
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -102,7 +103,8 @@ public class AsyncTask extends android.os.AsyncTask<Object,Void,String> {
             if (obj instanceof WebView){
                 wv = (WebView) obj;
 
-                wv.setWebViewClient(new WebViewClient());//test print in webView
+                //wv.setWebViewClient(new WebViewClient());//test print in webView
+                wv.loadData(String.valueOf(jsonlist), "text/html; charset=utf-8", "UTF-8");
             }
         }
     }
